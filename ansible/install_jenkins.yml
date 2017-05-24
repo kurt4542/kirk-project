@@ -8,7 +8,7 @@
 
   - name: ensure that mysql is started
     - copy:
-      src: ./
-      dest: /pang/jenkins
+      src: /Volumes/data/util/
+      dest: /pang/jenkins/
       owner: root
       group: root
