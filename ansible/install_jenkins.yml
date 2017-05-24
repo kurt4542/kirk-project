@@ -1,0 +1,14 @@
+---
+- hosts: batch
+  remote_user: operation
+
+  tasks:
+  - name: install java
+    yum: name=java state=latest
+
+  - name: ensure that mysql is started
+    - copy:
+      src: ./
+      dest: /pang/jenkins
+      owner: root
+      group: root
