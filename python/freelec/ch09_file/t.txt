@@ -1,0 +1,4 @@
+I am trying to create a project with Python 3.6.
+I have installed Python 3.6 properly and tested that it works.
+However, when I try to add Python 3.6 as an interpreter,
+I get the error "The Selected file is not a valid home for Python SDK
