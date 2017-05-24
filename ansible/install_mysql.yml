@@ -1,0 +1,9 @@
+---
+- hosts: databases
+  remote_user: operation
+
+  tasks:
+  - name: ensure mysql is at the latest version
+    yum: name=mysql-server state=latest
+  - name: ensure that postgresql is started
+    service: name=mysql-server state=started
