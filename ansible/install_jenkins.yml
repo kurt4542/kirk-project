@@ -6,8 +6,8 @@
   - name: install java
     yum: name=java state=latest
 
-  - name: ensure that mysql is started
-    - copy:
+  - name: copy jenkin.war to target server
+    copy:
       src: /Volumes/data/util/
       dest: /pang/jenkins/
       owner: root
