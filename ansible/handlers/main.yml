@@ -1,0 +1,4 @@
+---
+# handlers file for jenkins daemon
+- name : reload jenkins
+  service: name=jenkins state=restarted
