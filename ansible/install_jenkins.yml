@@ -1,5 +1,5 @@
 ---
-- hosts: batch
+- hosts: ci
   remote_user: operation
 
   tasks:
