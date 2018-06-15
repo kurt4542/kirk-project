@@ -36,7 +36,7 @@ Vagrant.configure(2) do |config|
     jenkins_slave.vm.hostname = "jenkins-slave01"
     #jenkins_slave.vm.network "forwarded_port", guest: 5601, host: 5601
     jenkins_slave.vm.network "private_network", ip: "10.200.200.22"
-#   jenkins_slave.vm.provision "shell", inline: $post_script
+    jenkins_slave.vm.provision "shell", inline: $post_script
 #       config.vm.provider "virtualbox" do |vb|
 #        vb.customize ["modifyvm", :id, "--cpus", "2"]
 #        vb.customize ["modifyvm", :id, "--memory", "4096"]

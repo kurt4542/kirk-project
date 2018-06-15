@@ -1,0 +1,13 @@
+---
+- name: install jenkins
+  hosts: ci-slaves
+  become: yes
+  become_method: sudo
+  remote_user: operation
+
+  roles:
+    - java
+    - jenkins
+    #- { role: nginx, user_type: 'nginx', tags: 'jenkins' }
+
+
