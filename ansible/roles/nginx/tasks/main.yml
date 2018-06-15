@@ -1,0 +1,25 @@
+---
+# Install nginx
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: present
+      update_cache: yes
+
+  - name: Start nginx
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+
+  - name: copy nginx reverse-proxy config file to jenkins node and restart nginx
+    copy:
+      src: default
+      dest: /etc/nginx/sites-enabled/default
+    notify: restart nginx
+
+
+  #- name: get current host's ip address
+  #  debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+
+

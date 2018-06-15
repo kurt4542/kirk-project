@@ -1,48 +1,13 @@
 ---
-- hosts: ci-servers
+- name: install jenkins
+  hosts: ci-servers
   become: yes
   become_method: sudo
   remote_user: operation
 
-  tasks:
-  - name: install default-jre
-    apt:
-      name: default-jre
-      state: present
-      update_cache: yes
-
-  - name: install default-jdk
-      apt:
-        name: default-jdk
-        state: present
-        update_cache: yes
-
-  - name: Repository is present
-    apt_repository:
-      repo: ppa:openjdk-r/ppa
-
-  - name: Install java 8
-    apt:
-      name: openjdk-8-jdk
-      state: present
-      update_cache: yes
-
-  - name: Install jenkins for configurion environment
-    shell: "wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -"
-
-  - name: Install jenkins for configurion environment adding jenkins packages
-    shell: "sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'"
-
-  - name: Install jenkins using apt-get
-    apt:
-      name: jenkins
-      state: present
-      update_cache: yes
-
-  - name: Start jenkins
-    service:
-      name: jenkins
-      state: started
-      enabled: yes
+  roles:
+    - java
+    - jenkins
+    #- { role: nginx, user_type: 'nginx', tags: 'jenkins' }
 
 

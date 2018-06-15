@@ -9,7 +9,6 @@ if [[ -z $CHK_USER ]]; then
 useradd -d /pang operation
 mkdir -p ~operation/.ssh
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDjggePUaVLZxoUcvaAixJBPmRLpMIHW/4YQ8eerUFUW98WYvev1iEeu2t7C7XtTdotzVnlK/SvfCArxlf5XsOYctKQ/pwA1ehrrXAMZNNuQmOVvKgNney38VojA1g4/iUTn/1iVg84cuo/1i44qrgkjo815FPfNy+L63Z4Z9+wSPe70Bm5rV8r/55uJ/RbYhFRCIFjpcyztcjcyNWNJ0KJk8AvlOuRCRSqQnzkCxvs+4uNgoly5+zqZs8ewOWXB/I7rlOeGjX26WC90rh6JlsuVdbW9B51AFqS7FOFG1NVZYfE3e6SF9JM+AkFgsdLRgpzXpxL5RpRrX6eL7FP4NPh operation@jenkins" > ~operation/.ssh/authorized_keys
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbdgtGuq4eLdpM51C6Jcpw+CtXV/aRh3sjMfy3rszLyFgLknZVyRc8YZBbggRZ85HBL4FGRnMPCgk1S8wNJzsMDpSANc/ngECnHoRppqijwHGnue9/ZiZo639RZ8ogC1MTyO60Z9MYzHmwUgo4Y0jxAMxYaulWkH3qHs33pg7W2NqaP1dpARTQno5aVOBb/bhOvuO8Tw7GxjKjpD28YRFv3E9RR8i119rKOx5F+hdUwEKGGg28TiE84vJZPMTknYbfCO4nJbprzWMXsWurEUsjGbKB3xsSxsRfLqNPMfpMKsjuTbATHcWr1aikqmQH6jOyEc3QuM0fOVDqL4ukVuWL ssh key for devops" >> ~operation/.ssh/authorized_keys
 fi
 echo "operation     ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 chown -R operation.operation /pang
