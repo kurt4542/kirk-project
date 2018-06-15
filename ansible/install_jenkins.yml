@@ -1,14 +1,13 @@
 ---
-- hosts: batch
+- name: install jenkins
+  hosts: ci-servers
+  become: yes
+  become_method: sudo
   remote_user: operation
 
-  tasks:
-  - name: install java
-    yum: name=java state=latest
+  roles:
+    - java
+    - jenkins
+    #- { role: nginx, user_type: 'nginx', tags: 'jenkins' }
 
-  - name: copy jenkin.war to target server
-    copy:
-      src: /Volumes/data/util/
-      dest: /pang/jenkins/
-      owner: root
-      group: root
+

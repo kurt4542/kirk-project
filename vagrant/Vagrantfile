@@ -1,0 +1,40 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$post_script = <<SCRIPT
+echo I am provisioning...
+date > /etc/vagrant_provisioned_at
+CHK_USER=`grep operation /etc/passwd`
+if [[ -z $CHK_USER ]]; then
+useradd -d /pang operation
+mkdir -p ~operation/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAld9tKgH2RUlZhbZd61kzXK/4S+ov7sr7g989y0xQB7rh/3bNTIbfOl+q1TYtlFPExedtFTQ6UZqRrh4WNBKuLN8u41c+LypEMXXytJoAFCBJC5c5q10vNz2DF/+GxpzodDB5vTH/mCJey/SUmkMhurkdLwRsJDi9IbcOUKIAkUDKZFNZeiTRftyYWiwH1vu7jrnHAzxaOXKuEls0HP9uls4cJPX4vWune3vq/k3JY6nzqzSzKbycbJ+EzxecsOQkOvw/IdlofZJsW6PKxKL86sOxVFNZ/0bttAqvpkSyfrqE5LwBOjDKSbkw5WXVW4zcz3UzcIv6hXPucBXSPVb1FQ== operation@ansible" > ~operation/.ssh/authorized_keys
+fi
+echo "operation     ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
+chown -R operation.operation /pang
+SCRIPT
+
+Vagrant.configure(2) do |config|
+ config.vm.define "jenkins_master" do |jenkins|
+   jenkins.vm.box = "ubuntu/trusty64"
+   jenkins.vm.hostname = "jenkins-master01"
+   #jenkins.vm.network "forwarded_port", guest: 5601, host: 5601
+   jenkins.vm.network "private_network", ip: "10.200.200.21"
+#   jenkins.vm.provision "shell", inline: $post_script
+#       config.vm.provider "virtualbox" do |vb|
+#        vb.customize ["modifyvm", :id, "--cpus", "2"]
+#        vb.customize ["modifyvm", :id, "--memory", "4096"]
+#       end
+ end
+ config.vm.define "jenkins_slave01" do |jenkins_slave|
+   jenkins_slave.vm.box = "ubuntu/trusty64"
+   jenkins_slave.vm.hostname = "jenkins-slave01"
+   #jenkins_slave.vm.network "forwarded_port", guest: 5601, host: 5601
+   jenkins_slave.vm.network "private_network", ip: "10.200.200.22"
+#   jenkins_slave.vm.provision "shell", inline: $post_script
+#       config.vm.provider "virtualbox" do |vb|
+#        vb.customize ["modifyvm", :id, "--cpus", "2"]
+#        vb.customize ["modifyvm", :id, "--memory", "4096"]
+#       end
+ end
+end

@@ -1,0 +1,11 @@
+---
+# Install java 8
+  - name: Repository is present
+    apt_repository:
+      repo: ppa:openjdk-r/ppa
+
+  - name: Install java 8
+    apt:
+      name: openjdk-8-jdk
+      state: present
+      update_cache: yes
