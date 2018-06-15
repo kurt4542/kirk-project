@@ -5,6 +5,18 @@
   remote_user: operation
 
   tasks:
+  - name: install default-jre
+    apt:
+      name: default-jre
+      state: present
+      update_cache: yes
+
+  - name: install default-jdk
+      apt:
+        name: default-jdk
+        state: present
+        update_cache: yes
+
   - name: Repository is present
     apt_repository:
       repo: ppa:openjdk-r/ppa
