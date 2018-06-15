@@ -33,4 +33,21 @@
       line: "<url>http://updates.jenkins.io/update-center.json</url>"
     notify: restart jenkins
 
+  - name: create .ssh directory
+    file:
+      path: /var/lib/jenkins/.ssh
+      state: directory
+      owner: jenkins
+      group: jenkins
+    when: user_type == 'slave'
+
+
+  - name: copy ssh public key to jenkins slave
+    copy:
+      src: .ssh/authorized_keys
+      dest: /var/lib/jenkins/.ssh/authorized_keys
+      owner: jenkins
+      group: jenkins
+    when: user_type == 'slave'
+
 
