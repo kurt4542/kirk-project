@@ -46,7 +46,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "git_repo" do |git|
     git.vm.box = "ubuntu/trusty64"
-    git.vm.hostname = "git-repo01"
+    git.vm.hostname = "gitlab01"
     #git.vm.network "forwarded_port", guest: 5601, host: 5601
     git.vm.network "private_network", ip: "10.200.200.23"
     git.vm.provision "shell", inline: $post_script
