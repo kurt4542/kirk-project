@@ -26,10 +26,10 @@ Vagrant.configure(2) do |config|
     jenkins.vm.network "forwarded_port", guest: 8080, host: 8080
     jenkins.vm.network "private_network", ip: "10.200.200.21"
     jenkins.vm.provision "shell", inline: $post_script
-#       config.vm.provider "virtualbox" do |vb|
-#        vb.customize ["modifyvm", :id, "--cpus", "2"]
-#        vb.customize ["modifyvm", :id, "--memory", "4096"]
-#       end
+       config.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--cpus", "2"]
+        vb.customize ["modifyvm", :id, "--memory", "4096"]
+       end
   end
   config.vm.define "jenkins_slave01" do |jenkins_slave|
     jenkins_slave.vm.box = "ubuntu/trusty64"
@@ -37,9 +37,9 @@ Vagrant.configure(2) do |config|
     #jenkins_slave.vm.network "forwarded_port", guest: 5601, host: 5601
     jenkins_slave.vm.network "private_network", ip: "10.200.200.22"
     jenkins_slave.vm.provision "shell", inline: $post_script
-#       config.vm.provider "virtualbox" do |vb|
-#        vb.customize ["modifyvm", :id, "--cpus", "2"]
-#        vb.customize ["modifyvm", :id, "--memory", "4096"]
-#       end
+       config.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--cpus", "2"]
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
+       end
   end
 end
