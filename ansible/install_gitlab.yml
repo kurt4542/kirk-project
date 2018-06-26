@@ -1,0 +1,9 @@
+---
+- name: install jenkins
+  hosts: gitlab
+  become: yes
+  become_method: sudo
+  remote_user: operation
+
+  roles:
+    - gitlab

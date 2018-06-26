@@ -1,0 +1,7 @@
+---
+# Need to install Packages for installing gitlab
+packages:
+  - curl
+  - openssh-server
+  - ca-certificates
+  - postfix

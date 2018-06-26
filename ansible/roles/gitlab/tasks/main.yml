@@ -1,0 +1,23 @@
+---
+# Install Gitlab
+  - name: Install and configure the necessary dependencies
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items: "{{ packages }}"
+
+  - name: Download GitLab repository installation script.
+    get_url:
+      url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh
+      dest: /tmp/script.deb.sh
+      #validate_certs: "{{ gitlab_download_validate_certs }}"
+    #when: (gitlab_file.stat.exists == false)
+
+  - name: Install GitLab repository
+    command: bash /tmp/script.deb.sh
+    #when: (gitlab_file.stat.exists == false)
+
+  - name: Config Gitlab Domain
+    shell: EXTERNAL_URL="http://10.200.200.23" apt-get install gitlab-ee
+
