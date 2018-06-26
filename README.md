@@ -20,4 +20,9 @@ ansible-playbook -i inventory/hosts jenkins_slave.yml -u operation -e user_type=
 
 ```
 
+Install Gitlab
+--------------
+```bash
+ansible-playbook -i inventory/hosts install_gitlab.yml -u operation
+```
 
