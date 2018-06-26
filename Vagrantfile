@@ -31,6 +31,7 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--memory", "4096"]
        end
   end
+  
   config.vm.define "jenkins_slave01" do |jenkins_slave|
     jenkins_slave.vm.box = "ubuntu/trusty64"
     jenkins_slave.vm.hostname = "jenkins-slave01"
@@ -41,5 +42,17 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--cpus", "2"]
         vb.customize ["modifyvm", :id, "--memory", "2048"]
        end
+  end
+
+  config.vm.define "git_repo" do |git|
+    git.vm.box = "ubuntu/trusty64"
+    git.vm.hostname = "git-repo01"
+    #git.vm.network "forwarded_port", guest: 5601, host: 5601
+    git.vm.network "private_network", ip: "10.200.200.23"
+    git.vm.provision "shell", inline: $post_script
+    #config.vm.provider "virtualbox" do |vb|
+    #  vb.customize ["modifyvm", :id, "--cpus", "2"]
+    #  vb.customize ["modifyvm", :id, "--memory", "2048"]
+    #end
   end
 end
