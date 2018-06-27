@@ -1,0 +1,9 @@
+---
+- name: install openldap
+  hosts: openldap
+  become: yes
+  become_method: sudo
+  remote_user: operation
+
+  roles:
+    - { role: kbrebanov.openldap, openldap_domain: 'eastroot.com', openldap_organization: 'kirk', opendlap_admin_password: 'coupang!23' }

@@ -65,7 +65,7 @@ Vagrant.configure(2) do |config|
     git.vm.provision "shell", inline: $post_script
     config.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--cpus", "2"]
-      vb.customize ["modifyvm", :id, "--memory", "2048"]
+      vb.customize ["modifyvm", :id, "--memory", "8192"]
     end
   end
 end
