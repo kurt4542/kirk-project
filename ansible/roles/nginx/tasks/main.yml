@@ -12,11 +12,11 @@
       state: started
       enabled: yes
 
-  - name: copy nginx reverse-proxy config file to jenkins node and restart nginx
-    copy:
-      src: default
-      dest: /etc/nginx/sites-enabled/default
-    notify: restart nginx
+  #- name: copy nginx reverse-proxy config file to jenkins node and restart nginx
+  #  copy:
+  #    src: default
+  #    dest: /etc/nginx/sites-enabled/default
+  #  notify: restart nginx
 
 
   #- name: get current host's ip address

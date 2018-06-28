@@ -1,0 +1,14 @@
+---
+- name: install jenkins
+  hosts: nginx
+  become: yes
+  become_method: sudo
+  remote_user: operation
+
+  roles:
+    - nginx
+    #- { role: nginx, user_type: 'nginx', tags: 'jenkins' }
+
+
+
+
