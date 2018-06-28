@@ -8,33 +8,50 @@ CHK_USER=`grep operation /etc/passwd`
 if [[ -z $CHK_USER ]]; then
 useradd -d /pang operation
 mkdir -p ~operation/.ssh
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAld9tKgH2RUlZhbZd61kzXK/4S+ov7sr7g989y0xQB7rh/3bNTIbfOl+q1TYtlFPExedtFTQ6UZqRrh4WNBKuLN8u41c+LypEMXXytJoAFCBJC5c5q10vNz2DF/+GxpzodDB5vTH/mCJey/SUmkMhurkdLwRsJDi9IbcOUKIAkUDKZFNZeiTRftyYWiwH1vu7jrnHAzxaOXKuEls0HP9uls4cJPX4vWune3vq/k3JY6nzqzSzKbycbJ+EzxecsOQkOvw/IdlofZJsW6PKxKL86sOxVFNZ/0bttAqvpkSyfrqE5LwBOjDKSbkw5WXVW4zcz3UzcIv6hXPucBXSPVb1FQ== operation@ansible" > ~operation/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDjggePUaVLZxoUcvaAixJBPmRLpMIHW/4YQ8eerUFUW98WYvev1iEeu2t7C7XtTdotzVnlK/SvfCArxlf5XsOYctKQ/pwA1ehrrXAMZNNuQmOVvKgNney38VojA1g4/iUTn/1iVg84cuo/1i44qrgkjo815FPfNy+L63Z4Z9+wSPe70Bm5rV8r/55uJ/RbYhFRCIFjpcyztcjcyNWNJ0KJk8AvlOuRCRSqQnzkCxvs+4uNgoly5+zqZs8ewOWXB/I7rlOeGjX26WC90rh6JlsuVdbW9B51AFqS7FOFG1NVZYfE3e6SF9JM+AkFgsdLRgpzXpxL5RpRrX6eL7FP4NPh operation@jenkins" > ~operation/.ssh/authorized_keys
 fi
 echo "operation     ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 chown -R operation.operation /pang
+ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 SCRIPT
 
 Vagrant.configure(2) do |config|
- config.vm.define "jenkins_master" do |jenkins|
-   jenkins.vm.box = "ubuntu/trusty64"
-   jenkins.vm.hostname = "jenkins-master01"
-   #jenkins.vm.network "forwarded_port", guest: 5601, host: 5601
-   jenkins.vm.network "private_network", ip: "10.200.200.21"
-#   jenkins.vm.provision "shell", inline: $post_script
-#       config.vm.provider "virtualbox" do |vb|
-#        vb.customize ["modifyvm", :id, "--cpus", "2"]
-#        vb.customize ["modifyvm", :id, "--memory", "4096"]
-#       end
- end
- config.vm.define "jenkins_slave01" do |jenkins_slave|
-   jenkins_slave.vm.box = "ubuntu/trusty64"
-   jenkins_slave.vm.hostname = "jenkins-slave01"
-   #jenkins_slave.vm.network "forwarded_port", guest: 5601, host: 5601
-   jenkins_slave.vm.network "private_network", ip: "10.200.200.22"
-#   jenkins_slave.vm.provision "shell", inline: $post_script
-#       config.vm.provider "virtualbox" do |vb|
-#        vb.customize ["modifyvm", :id, "--cpus", "2"]
-#        vb.customize ["modifyvm", :id, "--memory", "4096"]
-#       end
- end
+  if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=700,fmode=600"]
+  else
+    config.vm.synced_folder ".", "/vagrant"
+  end
+  config.vm.define "web01" do |web01|
+    web01.vm.box = "ubuntu/trusty64"
+    web01.vm.hostname = "web01"
+    #web01.vm.network "forwarded_port", guest: 8080, host: 8080
+    web01.vm.network "private_network", ip: "10.200.201.21"
+    web01.vm.provision "shell", inline: $post_script
+    #config.vm.provider "virtualbox" do |vb|
+      #vb.customize ["modifyvm", :id, "--cpus", "2"]
+      #vb.customize ["modifyvm", :id, "--memory", "8192"]
+    #end
+  end
+  config.vm.define "web02" do |web02|
+    web02.vm.box = "ubuntu/trusty64"
+    web02.vm.hostname = "web02"
+    #web02.vm.network "forwarded_port", guest: 8080, host: 8080
+    web02.vm.network "private_network", ip: "10.200.201.22"
+    web02.vm.provision "shell", inline: $post_script
+    #config.vm.provider "virtualbox" do |vb|
+    #vb.customize ["modifyvm", :id, "--cpus", "2"]
+    #vb.customize ["modifyvm", :id, "--memory", "8192"]
+    #end
+  end
+  config.vm.define "proxy" do |proxy|
+    proxy.vm.box = "ubuntu/trusty64"
+    proxy.vm.hostname = "proxy01"
+    #proxy.vm.network "forwarded_port", guest: 8080, host: 8080
+    proxy.vm.network "private_network", ip: "10.200.201.23"
+    proxy.vm.provision "shell", inline: $post_script
+    #config.vm.provider "virtualbox" do |vb|
+    #vb.customize ["modifyvm", :id, "--cpus", "2"]
+    #vb.customize ["modifyvm", :id, "--memory", "8192"]
+    #end
+  end
 end
