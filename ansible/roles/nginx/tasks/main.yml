@@ -12,6 +12,18 @@
       state: started
       enabled: yes
 
+  - name: Modify /etc/hosts
+    lineinfile:
+      dest: /etc/hosts
+      state: present
+      #regexp: '127.0.0.1 localhost'
+      insertafter: '^127.0.0.1 localhost'
+      line: "{{ item }}"
+    with_items:
+      - '10.200.201.21   web01'
+      - '10.200.201.22   web02'
+    when: user_type == 'reverse_proxy'
+
   - name: Copy nginx.conf
     copy:
       src: nginx/nginx.conf
