@@ -12,6 +12,20 @@
       state: started
       enabled: yes
 
+  - name: Copy nginx.conf
+    copy:
+      src: nginx/nginx.conf
+      dest: /etc/nginx/nginx.conf
+    when: user_type == 'reverse_proxy'
+    notify: restart nginx
+
+  - name: Copy proxy.conf
+    copy:
+      src: nginx/conf.d/proxy.conf
+      dest: /etc/nginx/conf.d/proxy.conf
+    when: user_type == 'reverse_proxy'
+    notify: restart nginx
+
   #- name: copy nginx reverse-proxy config file to jenkins node and restart nginx
   #  copy:
   #    src: default
