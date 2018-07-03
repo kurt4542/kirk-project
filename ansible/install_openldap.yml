@@ -6,4 +6,4 @@
   remote_user: operation
 
   roles:
-    - { role: kbrebanov.openldap, openldap_domain: 'eastroot.com', openldap_organization: 'kirk', opendlap_admin_password: 'coupang!23' }
+    - { role: kbrebanov.openldap, openldap_domain: 'eastroot.com', openldap_organization: 'eastroot', opendlap_admin_password: 'coupang!23' }

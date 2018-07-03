@@ -4,4 +4,3 @@
 .vagrant
 jenkins.war
 *.retry
-kbrebanov.openldap
