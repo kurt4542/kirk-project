@@ -1,0 +1,3 @@
+---
+# Config openldap server
+  - name: Install
