@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder ".", "/vagrant"
   end
   config.vm.define "kubeadmin" do |kubeadmin|
-    kubeadmin.vm.box = "ubuntu/trusty64"
+    kubeadmin.vm.box = "ubuntu/xenial64"
     kubeadmin.vm.hostname = "kubeadmin"
     #kubeadmin.vm.network "forwarded_port", guest: 8080, host: 8080
     kubeadmin.vm.network "private_network", ip: "10.200.200.51"
@@ -33,36 +33,36 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  config.vm.define "kubenod01" do |kubenod01|
-    kubenod01.vm.box = "ubuntu/trusty64"
-    kubenod01.vm.hostname = "kubenod01"
-    #kubenod01.vm.network "forwarded_port", guest: 8080, host: 8080
-    kubenod01.vm.network "private_network", ip: "10.200.200.52"
-    kubenod01.vm.provision "shell", inline: $post_script
+  config.vm.define "kubenode01" do |kubenode01|
+    kubenode01.vm.box = "ubuntu/xenial64"
+    kubenode01.vm.hostname = "kubenode01"
+    #kubenode01.vm.network "forwarded_port", guest: 8080, host: 8080
+    kubenode01.vm.network "private_network", ip: "10.200.200.52"
+    kubenode01.vm.provision "shell", inline: $post_script
     config.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--cpus", "2"]
       vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
   end
 
-  config.vm.define "kubenod02" do |kubenod02|
-    kubenod02.vm.box = "ubuntu/trusty64"
-    kubenod02.vm.hostname = "kubenod02"
-    #kubenod02.vm.network "forwarded_port", guest: 8080, host: 8080
-    kubenod02.vm.network "private_network", ip: "10.200.200.53"
-    kubenod02.vm.provision "shell", inline: $post_script
+  config.vm.define "kubenode02" do |kubenode02|
+    kubenode02.vm.box = "ubuntu/xenial64"
+    kubenode02.vm.hostname = "kubenode02"
+    #kubenode02.vm.network "forwarded_port", guest: 8080, host: 8080
+    kubenode02.vm.network "private_network", ip: "10.200.200.53"
+    kubenode02.vm.provision "shell", inline: $post_script
     config.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--cpus", "2"]
       vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
   end
 
-  config.vm.define "kubenod03" do |kubenod03|
-    kubenod03.vm.box = "ubuntu/trusty64"
-    kubenod03.vm.hostname = "kubenod03"
-    #kubenod03.vm.network "forwarded_port", guest: 8080, host: 8080
-    kubenod03.vm.network "private_network", ip: "10.200.200.54"
-    kubenod03.vm.provision "shell", inline: $post_script
+  config.vm.define "kubenode03" do |kubenode03|
+    kubenode03.vm.box = "ubuntu/xenial64"
+    kubenode03.vm.hostname = "kubenode03"
+    #kubenode03.vm.network "forwarded_port", guest: 8080, host: 8080
+    kubenode03.vm.network "private_network", ip: "10.200.200.54"
+    kubenode03.vm.provision "shell", inline: $post_script
     config.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--cpus", "2"]
       vb.customize ["modifyvm", :id, "--memory", "1024"]
