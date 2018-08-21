@@ -68,4 +68,16 @@ Vagrant.configure(2) do |config|
       vb.customize ["modifyvm", :id, "--memory", "8192"]
     end
   end
+
+  config.vm.define "vault" do |git|
+    git.vm.box = "ubuntu/trusty64"
+    git.vm.hostname = "vault01"
+    #git.vm.network "forwarded_port", guest: 8080, host: 8080
+    git.vm.network "private_network", ip: "10.200.200.25"
+    git.vm.provision "shell", inline: $post_script
+    config.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--cpus", "2"]
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
+    end
+  end
 end
